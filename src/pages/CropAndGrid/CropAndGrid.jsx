@@ -11,7 +11,7 @@ import {
   setEnableCropImage,
   setIsImageLoaded,
   setOriginalImageMimeType,
-} from "../../features/crop/cropSlice";
+} from "../../store/slices/cropSlice";
 
 const CropAndGrid = () => {
   const enableCropImage = useSelector((state) => state.enableCropImage);

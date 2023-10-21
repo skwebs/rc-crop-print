@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setIsLandscapeLayout,
   setEnableCropImage,
-} from "../../../features/crop/cropSlice";
+} from "../../../store/slices/cropSlice";
 
 const GridTools = ({
   paperSizeOptions,
@@ -19,7 +19,7 @@ const GridTools = ({
   const isLandscapeLayout = useSelector((state) => state.isLandscapeLayout);
   return (
     <>
-      <div className={` py-2 flex gap-2`}>
+      <div className={` py-2 flex gap-2 flex-wrap`}>
         <div>
           <Select title="Select Page Size">{paperSizeOptions}</Select>
         </div>

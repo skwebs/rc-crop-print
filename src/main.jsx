@@ -8,7 +8,7 @@ import {
   createRoutesFromChildren,
 } from "react-router-dom";
 import Layout from "./Layout.jsx";
-import { store } from "./app/store";
+import { store } from "./store/store";
 import { Provider } from "react-redux";
 import CropAndGrid from "./pages/CropAndGrid/CropAndGrid";
 
