@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import ButtonIcon from "../../../components/Button/ButtonIcon";
-import Select from "../../../components/select/Select";
-import SelectHU from "../../../components/select/SelectHU";
+import ButtonIcon from "../../../components/elements/Button/ButtonIcon";
+import Select from "../../../components/elements/select/Select";
+import SelectHU from "../../../components/elements/select/SelectHU";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setIsLandscapeLayout,
@@ -75,6 +75,7 @@ const GridTools = ({
           className="shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] w-9 h-9 flex justify-center items-center bg-gray-50 border border-gray-300 rounded hover:-translate-y-[1px] transition-all duration-100"
           title="Upload Image ">
           <input
+            accept="image/jpeg, image/png, image/gif, image/svg+xml, image/pipeg, image/bmp"
             type="file"
             id="upload-img"
             className="sr-only"

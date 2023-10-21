@@ -11,6 +11,7 @@ import {
   setEnableCropImage,
   setIsImageLoaded,
   setOriginalImageMimeType,
+  setPageTitle,
 } from "../../store/slices/cropSlice";
 
 const CropAndGrid = () => {
@@ -34,6 +35,10 @@ const CropAndGrid = () => {
 
   // canvas output
   const [outputCanvasImageBlob, setOutputCanvasImageBlob] = useState(null);
+  // set page title
+  useEffect(() => {
+    dispatch(setPageTitle("Crop & Grid"));
+  }, [dispatch]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
