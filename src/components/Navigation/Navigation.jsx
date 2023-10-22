@@ -2,6 +2,8 @@ import { useState } from "react";
 import Logo from "../Logo/Logo";
 import PageScrollProgressBar from "../PageScrollProgressBar/PageScrollProgressBar";
 import { NavLink, Link } from "react-router-dom";
+import { twMerge } from "tailwind-merge";
+import PropTypes from "prop-types";
 
 const navigation = [
   // { name: "Home", href: "/", current: true },
@@ -10,12 +12,16 @@ const navigation = [
   // { name: "CropAndGrid", href: "/crop-grid", current: false },
 ];
 
-const Navigation = () => {
+const Navigation = ({ className }) => {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <>
       <PageScrollProgressBar />
-      <div className="sticky w-full z-20 top-[2px] left-0 shadow-lg">
+      <div
+        className={twMerge(
+          className,
+          "sticky w-full z-20 top-[2px] left-0 shadow-lg"
+        )}>
         <nav className="bg-white dark:bg-gray-900 w-full z-20 border-b border-gray-200 dark:border-gray-600">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-2">
             <span className="flex items-center">
@@ -85,6 +91,10 @@ const Navigation = () => {
       </div>
     </>
   );
+};
+
+Navigation.propTypes = {
+  className: PropTypes.string,
 };
 
 export default Navigation;

@@ -7,7 +7,8 @@ const ButtonIcon = ({ children, onClick, className, ...props }) => {
       {...props}
       className={twMerge(
         className,
-        `shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] w-9 h-9 flex justify-center items-center bg-gray-50 border border-gray-300 rounded hover:-translate-y-[1px] transition-all duration-100`
+        `  w-9 h-9 flex justify-center items-center bg-gray-50 border border-gray-300 rounded 
+          element-hover`
       )}
       onClick={onClick}>
       {children}

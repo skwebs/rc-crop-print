@@ -12,12 +12,13 @@ const initialState = {
   outputCanvasImageBlob: null,
 
   // new ==================================================================
+
   enableCropImage: false,
   enableCropTool: false,
   enableGridTool: false,
   paperSize: "A4",
   isLandscapeLayout: false,
-  pageTitle: "Crop, Grid & Print",
+  title: null,
 };
 
 export const cropSlice = createSlice({
@@ -68,8 +69,8 @@ export const cropSlice = createSlice({
     setIsLandscapeLayout(state, action) {
       state.isLandscapeLayout = action.payload;
     },
-    setPageTitle(state, action) {
-      state.pageTitle = action.payload;
+    setTitle(state, action) {
+      state.title = action.payload;
     },
   },
 });
@@ -90,7 +91,7 @@ export const {
   setEnableGridTool,
   setPaperSize,
   setIsLandscapeLayout,
-  setPageTitle,
+  setTitle,
 } = cropSlice.actions;
 
 export default cropSlice.reducer;

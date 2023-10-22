@@ -5,11 +5,10 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Layout = () => {
-  const pageTitle = useSelector((state) => state.pageTitle);
-  console.log(pageTitle);
+  const title = useSelector((state) => state.title);
   useEffect(() => {
-    document.title = pageTitle;
-  }, [pageTitle]);
+    document.title = title;
+  }, [title]);
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-100">

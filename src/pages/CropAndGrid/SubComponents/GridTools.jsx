@@ -20,76 +20,82 @@ const GridTools = ({
   return (
     <>
       <div className={` py-2 flex gap-2 flex-wrap`}>
-        <div>
-          <Select title="Select Page Size">{paperSizeOptions}</Select>
-        </div>
-        <div>
-          <Select title="Select Number of Row">{rowOptions}</Select>
-        </div>
-        <div>
-          <Select title="Select Number of Column">{colOptions}</Select>
-        </div>
+        <div className="opacity-30 flex gap-1 flex-wrap">
+          <div>
+            <Select title="Select Page Size">{paperSizeOptions}</Select>
+          </div>
+          <div>
+            <Select title="Select Number of Row">{rowOptions}</Select>
+          </div>
+          <div>
+            <Select title="Select Number of Column">{colOptions}</Select>
+          </div>
 
-        <div>
-          {/* landscape */}
-          <>
-            <input
-              type="checkbox"
-              id="react-option"
-              defaultValue
-              checked={isLandscapeLayout}
-              className="hidden peer"
-              required
-              onChange={(e) => dispatch(setIsLandscapeLayout(e.target.checked))}
-            />
-            <label
-              htmlFor="react-option"
-              className="h-8 w-9 hover:-translate-y-[1px] shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]  flex justify-center items-center bg-gray-50 border border-gray-300 rounded  transition-all duration-100
+          <div>
+            {/* landscape */}
+            <div>
+              <input
+                type="checkbox"
+                id="react-option"
+                defaultValue
+                checked={isLandscapeLayout}
+                className="hidden peer"
+                required
+                onChange={(e) =>
+                  dispatch(setIsLandscapeLayout(e.target.checked))
+                }
+              />
+              <label
+                htmlFor="react-option"
+                className="label-hover h-9 w-9 flex justify-center items-center bg-gray-50 border border-gray-300 rounded
                   text-gray-700  cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:text-blue-600  dark:peer-checked:text-gray-300 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-              {isLandscapeLayout ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  className="h-6"
-                  viewBox="0 0 16 16">
-                  <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-                  <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm10.798 11c-.453-1.27-1.76-3-4.798-3-3.037 0-4.345 1.73-4.798 3H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-1.202Z" />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="1em"
-                  fill="currentColor"
-                  viewBox="0 0 384 512">
-                  <path d="M384 64c0-35.3-28.7-64-64-64H64C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64l0-384zM128 192a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zM80 356.6c0-37.9 30.7-68.6 68.6-68.6h86.9c37.9 0 68.6 30.7 68.6 68.6c0 15.1-12.3 27.4-27.4 27.4H107.4C92.3 384 80 371.7 80 356.6z" />
-                </svg>
-              )}
-            </label>
-          </>
+                {isLandscapeLayout ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    className="h-6"
+                    viewBox="0 0 16 16">
+                    <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                    <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2Zm10.798 11c-.453-1.27-1.76-3-4.798-3-3.037 0-4.345 1.73-4.798 3H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-1.202Z" />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="1em"
+                    fill="currentColor"
+                    viewBox="0 0 384 512">
+                    <path d="M384 64c0-35.3-28.7-64-64-64H64C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64l0-384zM128 192a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zM80 356.6c0-37.9 30.7-68.6 68.6-68.6h86.9c37.9 0 68.6 30.7 68.6 68.6c0 15.1-12.3 27.4-27.4 27.4H107.4C92.3 384 80 371.7 80 356.6z" />
+                  </svg>
+                )}
+              </label>
+            </div>
+          </div>
+
+          <SelectHU />
         </div>
 
-        <SelectHU />
-
-        <label
-          htmlFor="upload-img"
-          className="shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] w-9 h-9 flex justify-center items-center bg-gray-50 border border-gray-300 rounded hover:-translate-y-[1px] transition-all duration-100"
-          title="Upload Image ">
+        <div>
           <input
             accept="image/jpeg, image/png, image/svg+xml"
             type="file"
             id="upload-img"
-            className="sr-only"
+            className="sr-only peer"
             onChange={handleImageChange}
           />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="h-5">
-            <path d="M9.25 13.25a.75.75 0 001.5 0V4.636l2.955 3.129a.75.75 0 001.09-1.03l-4.25-4.5a.75.75 0 00-1.09 0l-4.25 4.5a.75.75 0 101.09 1.03L9.25 4.636v8.614z" />
-            <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
-          </svg>
-        </label>
+          <label
+            htmlFor="upload-img"
+            className="label-hover w-9 h-9 flex justify-center items-center bg-gray-50 border border-gray-300 rounded "
+            title="Upload Image ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="h-5">
+              <path d="M9.25 13.25a.75.75 0 001.5 0V4.636l2.955 3.129a.75.75 0 001.09-1.03l-4.25-4.5a.75.75 0 00-1.09 0l-4.25 4.5a.75.75 0 101.09 1.03L9.25 4.636v8.614z" />
+              <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
+            </svg>
+          </label>
+        </div>
 
         <ButtonIcon
           title="Re Crop"

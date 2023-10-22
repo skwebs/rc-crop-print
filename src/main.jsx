@@ -11,12 +11,15 @@ import Layout from "./Layout.jsx";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import CropAndGrid from "./pages/CropAndGrid/CropAndGrid";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 const router = createBrowserRouter(
   createRoutesFromChildren(
-    <Route path="/" element={<Layout />}>
-      <Route path="" element={<CropAndGrid />} />
-    </Route>
+    <>
+      <Route path="/" element={<Layout />} errorElement={<PageNotFound />}>
+        <Route index element={<CropAndGrid />} />
+      </Route>
+    </>
   )
 );
 
