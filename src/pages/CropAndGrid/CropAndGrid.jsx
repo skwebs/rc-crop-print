@@ -32,24 +32,29 @@ const CropAndGrid = () => {
 
   const [croppedCanvas, setCroppedCanvas] = useState(null);
   const [cropper, setCropper] = useState(null);
+  const [rotateValue, setRotateValue] = useState(0);
 
   // canvas output
   const [outputCanvasImageBlob, setOutputCanvasImageBlob] = useState(null);
   // set page title
   useEffect(() => {
     dispatch(setTitle("Crop & Grid"));
-  });
+  }, [dispatch]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      if (imageRef.current.src) {
+        URL.revokeObjectURL(imageRef.current.src);
+      }
       const imageUrl = URL.createObjectURL(file);
       imageRef.current.src = imageUrl;
-      setOriginalImageMimeType(file.type);
+      dispatch(setOriginalImageMimeType(file.type));
       imageRef.current.onload = () => {
         dispatch(setIsImageLoaded(true));
         dispatch(setEnableCropImage(true));
         setCroppedCanvas(null);
+        setRotateValue(0);
         initCropper();
       };
     }
@@ -58,7 +63,6 @@ const CropAndGrid = () => {
   const initCropper = () => {
     if (cropper) {
       cropper.destroy();
-      setCropper(null);
     }
 
     const cropperInstance = new Cropper(imageRef.current, {
@@ -75,11 +79,6 @@ const CropAndGrid = () => {
       ready() {
         imageRef.current.style.visibility = "visible";
       },
-      crop(event) {
-        if (event.detail.rotate !== 0) {
-          // Handle reset rotate button
-        }
-      },
     });
     setCropper(cropperInstance);
   };
@@ -91,6 +90,39 @@ const CropAndGrid = () => {
         height: targetImageHeight,
       });
       setCroppedCanvas(croppedImageData);
+    }
+  };
+
+  const handleRotate = (value) => {
+    const val = parseFloat(value);
+    setRotateValue(val);
+    if (cropper) {
+      cropper.rotateTo(val);
+    }
+  };
+
+  const handleFlip = (direction) => {
+    if (cropper) {
+      const data = cropper.getData();
+      if (direction === "h") {
+        cropper.scaleX(data.scaleX === 1 ? -1 : 1);
+      } else {
+        cropper.scaleY(data.scaleY === 1 ? -1 : 1);
+      }
+    }
+  };
+
+  const handleResetRotate = () => {
+    setRotateValue(0);
+    if (cropper) {
+      cropper.rotateTo(0);
+    }
+  };
+
+  const handleResetAll = () => {
+    setRotateValue(0);
+    if (cropper) {
+      cropper.reset();
     }
   };
 
@@ -111,7 +143,9 @@ const CropAndGrid = () => {
     );
   });
 
-  let paperSize = paperSizes["A4"];
+  const isLandscapeLayout = useSelector((state) => state.isLandscapeLayout);
+  const paperSizeKey = useSelector((state) => state.paperSize);
+  const paperSize = paperSizes[paperSizeKey] || paperSizes["A4"];
 
   // Wrap drawImageGrid with useCallback
   const drawImageGrid = useCallback(() => {
@@ -125,9 +159,12 @@ const CropAndGrid = () => {
       const screenResolution = 96;
       const scaleFactor = photoResolution / screenResolution;
 
-      outputCanvas.width = paperSizes.A4.width;
-      outputCanvas.height = paperSizes.A4.height;
-      outputCanvas.style.maxWidth = `${paperSize.width / scaleFactor}px`;
+      const width = isLandscapeLayout ? paperSize.height : paperSize.width;
+      const height = isLandscapeLayout ? paperSize.width : paperSize.height;
+
+      outputCanvas.width = width;
+      outputCanvas.height = height;
+      outputCanvas.style.maxWidth = `${width / scaleFactor}px`;
 
       ctx.fillStyle = "white";
       ctx.fillRect(0, 0, outputCanvas.width, outputCanvas.height);
@@ -139,6 +176,9 @@ const CropAndGrid = () => {
         for (let col = 0; col < numCols; col++) {
           const x = col * (targetImageWidth + gap) + margin;
           const y = row * (targetImageHeight + gap) + margin;
+
+          if (x + targetImageWidth > width || y + targetImageHeight > height)
+            continue;
 
           ctx.fillStyle = backgroundColor;
           ctx.fillRect(x, y, targetImageWidth, targetImageHeight);
@@ -165,14 +205,14 @@ const CropAndGrid = () => {
     isImageLoaded,
     croppedCanvas,
     originalImageMimeType,
-    paperSizes,
     numRows,
     numCols,
     backgroundColor,
-    paperSize.width,
     targetImageHeight,
     targetImageWidth,
     dispatch,
+    isLandscapeLayout,
+    paperSize,
   ]);
 
   useEffect(() => {
@@ -184,11 +224,13 @@ const CropAndGrid = () => {
   const downloadCanvas = () => {
     if (outputCanvasImageBlob) {
       const timestamp = new Date().getTime();
-      const fileName = `IMG_${timestamp}.png`;
+      const ext = originalImageMimeType.split("/")[1] || "png";
+      const fileName = `IMG_${timestamp}.${ext}`;
       const link = document.createElement("a");
       link.download = fileName;
       link.href = URL.createObjectURL(outputCanvasImageBlob);
       link.click();
+      setTimeout(() => URL.revokeObjectURL(link.href), 100);
     }
   };
 
@@ -280,6 +322,11 @@ const CropAndGrid = () => {
                 <CropTools
                   handleCropImage={handleCropImage}
                   handleImageChange={handleImageChange}
+                  handleRotate={handleRotate}
+                  handleFlip={handleFlip}
+                  handleResetRotate={handleResetRotate}
+                  handleResetAll={handleResetAll}
+                  rotateValue={rotateValue}
                 />
               }
             </div>

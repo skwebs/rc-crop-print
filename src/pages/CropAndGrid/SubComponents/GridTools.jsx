@@ -1,11 +1,15 @@
 import PropTypes from "prop-types";
 import ButtonIcon from "../../../components/elements/Button/ButtonIcon";
 import Select from "../../../components/elements/select/Select";
-import SelectHU from "../../../components/elements/select/SelectHU";
+// import SelectHU from "../../../components/elements/select/SelectHU";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setIsLandscapeLayout,
   setEnableCropImage,
+  setNumRows,
+  setNumCols,
+  setPaperSize,
+  setBackgroundColor,
 } from "../../../store/slices/cropSlice";
 
 const GridTools = ({
@@ -17,18 +21,48 @@ const GridTools = ({
 }) => {
   const dispatch = useDispatch();
   const isLandscapeLayout = useSelector((state) => state.isLandscapeLayout);
+  const numRows = useSelector((state) => state.numRows);
+  const numCols = useSelector((state) => state.numCols);
+  const paperSize = useSelector((state) => state.paperSize);
+  const backgroundColor = useSelector((state) => state.backgroundColor);
+
   return (
     <>
-      <div className={` py-2 flex gap-2 flex-wrap`}>
-        <div className="opacity-30 flex gap-1 flex-wrap">
+      <div className={` py-2 flex gap-2 flex-wrap items-center`}>
+        <div className="flex gap-1 flex-wrap items-center">
           <div>
-            <Select title="Select Page Size">{paperSizeOptions}</Select>
+            <Select
+              title="Select Page Size"
+              value={paperSize}
+              onChange={(e) => dispatch(setPaperSize(e.target.value))}>
+              {paperSizeOptions}
+            </Select>
           </div>
           <div>
-            <Select title="Select Number of Row">{rowOptions}</Select>
+            <Select
+              title="Select Number of Row"
+              value={numRows}
+              onChange={(e) => dispatch(setNumRows(parseInt(e.target.value)))}>
+              {rowOptions}
+            </Select>
           </div>
           <div>
-            <Select title="Select Number of Column">{colOptions}</Select>
+            <Select
+              title="Select Number of Column"
+              value={numCols}
+              onChange={(e) => dispatch(setNumCols(parseInt(e.target.value)))}>
+              {colOptions}
+            </Select>
+          </div>
+
+          <div className="flex items-center">
+            <input
+              type="color"
+              value={backgroundColor}
+              onChange={(e) => dispatch(setBackgroundColor(e.target.value))}
+              className="h-9 w-9 rounded border border-gray-300 cursor-pointer"
+              title="Background Color"
+            />
           </div>
 
           <div>
@@ -37,18 +71,17 @@ const GridTools = ({
               <input
                 type="checkbox"
                 id="react-option"
-                defaultValue
                 checked={isLandscapeLayout}
                 className="hidden peer"
-                required
                 onChange={(e) =>
                   dispatch(setIsLandscapeLayout(e.target.checked))
                 }
               />
               <label
                 htmlFor="react-option"
+                title="Toggle Landscape"
                 className="label-hover h-9 w-9 flex justify-center items-center bg-gray-50 border border-gray-300 rounded
-                  text-gray-700  cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:text-blue-600  dark:peer-checked:text-gray-300 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                  text-gray-700 cursor-pointer peer-checked:bg-green-600 peer-checked:text-white transition-all">
                 {isLandscapeLayout ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +94,7 @@ const GridTools = ({
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    height="1em"
+                    height="1.2em"
                     fill="currentColor"
                     viewBox="0 0 384 512">
                     <path d="M384 64c0-35.3-28.7-64-64-64H64C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64l0-384zM128 192a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zM80 356.6c0-37.9 30.7-68.6 68.6-68.6h86.9c37.9 0 68.6 30.7 68.6 68.6c0 15.1-12.3 27.4-27.4 27.4H107.4C92.3 384 80 371.7 80 356.6z" />
@@ -71,21 +104,21 @@ const GridTools = ({
             </div>
           </div>
 
-          <SelectHU />
+          {/* <SelectHU /> */}
         </div>
 
         <div>
           <input
             accept="image/jpeg, image/png, image/svg+xml"
             type="file"
-            id="upload-img"
+            id="re-upload-img"
             className="sr-only peer"
             onChange={handleImageChange}
           />
           <label
-            htmlFor="upload-img"
-            className="label-hover w-9 h-9 flex justify-center items-center bg-gray-50 border border-gray-300 rounded "
-            title="Upload Image ">
+            htmlFor="re-upload-img"
+            className="label-hover w-9 h-9 flex justify-center items-center bg-gray-50 border border-gray-300 rounded cursor-pointer "
+            title="Upload New Image ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
