@@ -78,19 +78,31 @@ const CropTools = ({
           </svg>
         </ButtonIcon>
 
-        <button
-          className="text-xs px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 transition-colors"
+        <ButtonIcon
+          title="Reset Rotation"
           onClick={handleResetRotate}
           disabled={!isImageLoaded || rotateValue === 0}>
-          Reset Rotate
-        </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            fill="currentColor"
+            style={{ width: 18 }}>
+            <path d="M480 256c0 123.7-100.3 224-224 224s-224-100.3-224-224c0-57.9 22-110.6 58.3-150.2L121 76.3C132.9 64.3 132.9 45 121 33s-31.4-12-43.4 0L9.4 101.2C-2.6 113.1-2.6 132.4 9.4 144.4L77.6 212.7c12 12 31.4 12 43.4 0s12-31.4 0-43.4l-31.3-31.3C121.7 107.5 184.9 80 256 80c97.2 0 176 78.8 176 176s-78.8 176-176 176-176-78.8-176-176c0-39.7 13.1-76.3 35.3-105.7 6.1-8.1 4.5-19.6-3.6-25.7s-19.6-4.5-25.7 3.6C54 165.7 40 209.2 40 256c0 119.3 96.7 216 216 216s216-96.7 216-216-96.7-216-216-216c-13.3 0-24-10.7-24-24s10.7-24 24-24c141.4 0 256 114.6 256 256z" />
+          </svg>
+        </ButtonIcon>
 
-        <button
-          className="text-xs px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 transition-colors"
+        <ButtonIcon
+          title="Reset All"
           onClick={handleResetAll}
           disabled={!isImageLoaded}>
-          Reset All
-        </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            fill="currentColor"
+            style={{ width: 18 }}>
+            <path d="M125.7 160H176c17.7 0 32 14.3 32 32s-14.3 32-32 32H48c-17.7 0-32-14.3-32-32V64c0-17.7 14.3-32 32-32s32 14.3 32 32v51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z" />
+          </svg>
+        </ButtonIcon>
 
         <div className="flex flex-col w-full mt-2">
           <input
