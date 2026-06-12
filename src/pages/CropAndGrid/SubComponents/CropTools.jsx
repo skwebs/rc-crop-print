@@ -79,19 +79,6 @@ const CropTools = ({
         </ButtonIcon>
 
         <ButtonIcon
-          title="Reset Rotation"
-          onClick={handleResetRotate}
-          disabled={!isImageLoaded || rotateValue === 0}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 640 640"
-            fill="currentColor"
-            style={{ width: 18 }}>
-            <path d="M320 128C263.2 128 212.1 152.7 176.9 192L224 192C241.7 192 256 206.3 256 224C256 241.7 241.7 256 224 256L96 256C78.3 256 64 241.7 64 224L64 96C64 78.3 78.3 64 96 64C113.7 64 128 78.3 128 96L128 150.7C174.9 97.6 243.5 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C233 576 156.1 532.6 109.9 466.3C99.8 451.8 103.3 431.9 117.8 421.7C132.3 411.5 152.2 415.1 162.4 429.6C197.2 479.4 254.8 511.9 320 511.9C426 511.9 512 425.9 512 319.9C512 213.9 426 128 320 128z" />
-          </svg>
-        </ButtonIcon>
-
-        <ButtonIcon
           title="Reset All"
           onClick={handleResetAll}
           disabled={!isImageLoaded}>
@@ -105,17 +92,34 @@ const CropTools = ({
         </ButtonIcon>
 
         <div className="flex flex-col w-full mt-2">
-          <input
-            type="range"
-            min="-90"
-            max="90"
-            step="0.01"
-            value={rotateValue}
-            onChange={(e) => handleRotate(e.target.value)}
-            disabled={!isImageLoaded}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-          />
-          <div className="flex justify-between text-[10px] text-gray-500 px-1 mt-1">
+          <div className="flex items-center gap-2">
+            <input
+              type="range"
+              min="-90"
+              max="90"
+              step="0.01"
+              value={rotateValue}
+              onChange={(e) => handleRotate(e.target.value)}
+              disabled={!isImageLoaded}
+              className={`w-full h-2 bg-gray-200 rounded-lg appearance-none accent-blue-600 transition-all ${
+                isImageLoaded ? "cursor-pointer" : "cursor-not-allowed opacity-50"
+              }`}
+            />
+            <ButtonIcon
+              title="Reset Rotation"
+              onClick={handleResetRotate}
+              disabled={!isImageLoaded || rotateValue === 0}
+              className="w-8 h-8 flex-shrink-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 640 640"
+                fill="currentColor"
+                style={{ width: 16 }}>
+                <path d="M320 128C263.2 128 212.1 152.7 176.9 192L224 192C241.7 192 256 206.3 256 224C256 241.7 241.7 256 224 256L96 256C78.3 256 64 241.7 64 224L64 96C64 78.3 78.3 64 96 64C113.7 64 128 78.3 128 96L128 150.7C174.9 97.6 243.5 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576C233 576 156.1 532.6 109.9 466.3C99.8 451.8 103.3 431.9 117.8 421.7C132.3 411.5 152.2 415.1 162.4 429.6C197.2 479.4 254.8 511.9 320 511.9C426 511.9 512 425.9 512 319.9C512 213.9 426 128 320 128z" />
+              </svg>
+            </ButtonIcon>
+          </div>
+          <div className="flex justify-between text-[10px] text-gray-500 px-1 mt-1 pr-10">
             <span>-90°</span>
             <span>0°</span>
             <span>90°</span>
